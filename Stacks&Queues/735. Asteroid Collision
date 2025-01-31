@@ -1,0 +1,40 @@
+class Solution {
+public:
+    vector<int> asteroidCollision(vector<int>& asteroids) {
+        stack<int> st;
+        int n = asteroids.size();
+
+        for(int i = 0; i<n ; i++){
+
+          if(asteroids[i] > 0) {
+                st.push(asteroids[i]);
+            }
+
+        else {
+               while(!st.empty() && st.top() > 0 && abs(asteroids[i]) > st.top()){
+                st.pop();
+               }
+
+                if (st.empty() || st.top() < 0) {
+                    // No more positive asteroids to collide, or top is negative
+                    st.push(asteroids[i]);
+                } else if (st.top() == abs(asteroids[i])) {
+                    // Top positive asteroid is equal in size, destroy both
+                    st.pop();
+    
+                }
+                   
+            }
+
+        }
+        vector<int>  res;
+        
+        while(!st.empty()){
+           res.push_back(st.top());
+           st.pop();
+        }
+        reverse(res.begin() , res.end());
+        return res;
+        
+    }
+};
