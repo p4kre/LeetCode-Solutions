@@ -1,0 +1,34 @@
+//{ Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+class Solution {
+  public:
+    // Function to return the minimum cost of connecting the ropes.
+   int minCost(vector<int>& arr) {
+    priority_queue<int, vector<int>, greater<int>> pq;
+    int ans = 0;
+
+    // Push all elements into the min-heap
+    for (auto x : arr) {
+        pq.push(x);
+    }
+
+    // Combine the smallest two elements until one element remains
+    while (pq.size() > 1) {
+        int top1 = pq.top();
+        pq.pop();
+        int top2 = pq.top();
+        pq.pop();
+
+        int combinedTop = top1 + top2;
+        ans += combinedTop;
+        
+        pq.push(combinedTop);
+    }
+
+    return ans;
+}
+};
